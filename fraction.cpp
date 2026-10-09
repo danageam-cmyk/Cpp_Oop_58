@@ -1,7 +1,7 @@
 #include "fraction.h"
 #include <format>
 #include <iostream>
-#
+
 
 fraction_t::fraction_t(){
 	numerator = 0;

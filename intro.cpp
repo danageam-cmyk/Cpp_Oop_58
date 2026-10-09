@@ -1,6 +1,7 @@
 #include "intro.h"
 #include <iostream>
 #include "fraction.h"
+#include "vector2.h"
 void intro() {
 	std::cout << "Intro to OOP" << std::endl;
 
@@ -23,7 +24,7 @@ void intro() {
 		<< frac6->to_string() << std::endl;
 
 
-	delete frac2;
+	delete frac2;	
 	delete frac4;
 	delete frac6;
 }
