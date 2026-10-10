@@ -136,9 +136,12 @@ fraction_t fraction_t::operator +(const fraction_t& other) {
 		strcpy(new_name, this->name);
 		strcpy(new_name + len1, "+");
 		strcpy(new_name + len1 + 1, other.name);
-
-
+		
 	}
+	return fraction_t(
+		this->numerator * other.denominator + this->denominator * other.numerator,
+		this->denominator * other.denominator
+	);
 };
 
 fraction_t fraction_t::operator -(const fraction_t& other) {
@@ -154,6 +157,10 @@ fraction_t fraction_t::operator -(const fraction_t& other) {
 
 
 	}
+	return fraction_t(
+		this->numerator * other.denominator + this->denominator * other.numerator,
+		this->denominator * other.denominator
+	);
 };
 
 
