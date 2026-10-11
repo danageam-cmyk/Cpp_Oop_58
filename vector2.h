@@ -5,18 +5,25 @@ class vector2_t {
 private:
     double x;
     double y;
+    char* name;
 
 public:
-    // Аксесори (геттери та сеттери)
+
     double get_x();
     double get_y();
 
     void set_x(double);
     void set_y(double);
 
+    char* get_name();
+    void set_name(const char*);
+
     std::string to_string();
 
-    // Конструктори
+
     vector2_t();
     vector2_t(double, double);
+    vector2_t(double, double, const char*);
+    vector2_t(const vector2_t&);
+    ~vector2_t();
 };
