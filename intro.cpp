@@ -1,3 +1,79 @@
+#include "fraction.h"
+#include <format>
+
+int fraction_t::get_numerator()
+
+
+
+
+
+
+std::string fraction_t::to_string() {
+	return std::format("", numerator, denominator)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 ООП Вступ 
 парадигма - термін що поєднує традиції пвдходи прийоми методики тощо

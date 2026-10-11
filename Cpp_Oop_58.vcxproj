@@ -142,6 +142,9 @@
     <ClCompile Include="Cpp_Oop_58.cpp" />
     <ClCompile Include="intro.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="fraction.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
