@@ -142,7 +142,13 @@ fraction_t fraction_t::operator +(const fraction_t& other) {
 		this->denominator * other.denominator,
 		new_name);
 	// a/b + c/d = (ad+bc)/bd
-}
+	}
+	return fraction_t(
+		this->numerator * other.denominator + this->denominator * other.numerator,
+		this->denominator * other.denominator
+	);
+};
+
 
 fraction_t& fraction_t::operator =(const fraction_t& other) {
 	this->numerator = other.numerator;
