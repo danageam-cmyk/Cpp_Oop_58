@@ -8,22 +8,21 @@ private:
     char* name;
 
 public:
-
     double get_x();
     double get_y();
+    char* get_name();
 
     void set_x(double);
     void set_y(double);
-
-    char* get_name();
     void set_name(const char*);
 
     std::string to_string();
 
-
     vector2_t();
+    vector2_t(double);
     vector2_t(double, double);
     vector2_t(double, double, const char*);
     vector2_t(const vector2_t&);
+
     ~vector2_t();
 };

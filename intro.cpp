@@ -60,12 +60,47 @@ void intro() {
 
 
 
-
-
 	delete frac2;
 	delete frac4;
 	delete frac6;
+
+
+	std::cout << "\--- VECTOR2 ---" << std::endl;
+
+	vector2_t vec1;
+	vector2_t* vec2 = new vector2_t;
+
+	std::cout
+		<< vec1.to_string() << std::endl
+		<< vec2->to_string() << std::endl;
+
+	vector2_t vec3(10.5);
+	vector2_t* vec4 = new vector2_t(1.5, 2.5);
+
+	std::cout
+		<< vec3.to_string() << std::endl
+		<< vec4->to_string() << std::endl;
+
+	vector2_t vec5(3.5, 7.5, "Vector A");
+	vector2_t* vec6 = new vector2_t(vec5);
+
+	std::cout
+		<< vec5.to_string() << std::endl
+		<< vec6->to_string() << std::endl;
+
+	vec6->set_name("Vector B");
+
+	std::cout
+		<< "After changing name:" << std::endl
+		<< vec5.to_string() << std::endl
+		<< vec6->to_string() << std::endl;
+
+
+	delete vec2;
+	delete vec4;
+	delete vec6;
 }
+
 
 /*
 ООП. Вступ.

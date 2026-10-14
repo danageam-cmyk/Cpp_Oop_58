@@ -1,44 +1,54 @@
 
 #include "vector2.h"
 #include <format>
+#include <iostream>
 #include <cstring>
 
 vector2_t::vector2_t() {
-    x = 0.0;
-    y = 0.0;
-    name = nullptr;
+    x = 0;
+    y = 0;
+    name = NULL;
 }
 
-vector2_t::vector2_t(double x, double y) {
+vector2_t::vector2_t(double x) {
     this->x = x;
-    this->y = y;
-    name = nullptr;
+    y = 0;
+    name = NULL;
 }
 
-vector2_t::vector2_t(double x, double y, const char* name) {
-    this->x = x;
-    this->y = y;
+vector2_t::vector2_t(double x, double y)
+    : x{ x }, y{ y } {
+    name = NULL;
+}
 
-    if (name != nullptr) {
-        this->name = new char[strlen(name) + 1];
-        strcpy_s(this->name, strlen(name) + 1, name);
+vector2_t::vector2_t(double x, double y, const char* name)
+    : x{ x }, y{ y } {
+
+    if (name != NULL) {
+        size_t len = strlen(name);
+        this->name = new char[len + 1];
+        strcpy_s(this->name, len + 1, name);
     }
     else {
-        this->name = nullptr;
+        this->name = NULL;
     }
 }
-
 
 vector2_t::vector2_t(const vector2_t& other) {
     x = other.x;
     y = other.y;
 
-    if (other.name != nullptr) {
-        name = new char[strlen(other.name) + 1];
-        strcpy_s(name, strlen(other.name) + 1, other.name);
+    if (other.name != NULL) {
+        size_t len = strlen(other.name);
+        name = new char[len + 1];
+        strcpy_s(name, len + 1, other.name);
+
+        std::cout << "Copy constructor: copy from -> "
+            << (void*)other.name << " to "
+            << (void*)name << std::endl;
     }
     else {
-        name = nullptr;
+        name = NULL;
     }
 }
 
@@ -67,11 +77,12 @@ void vector2_t::set_y(double y) {
 }
 
 void vector2_t::set_name(const char* name) {
-    char* new_name = nullptr;
+    char* new_name = NULL;
 
-    if (name != nullptr) {
-        new_name = new char[strlen(name) + 1];
-        strcpy_s(new_name, strlen(name) + 1, name);
+    if (name != NULL) {
+        size_t len = strlen(name);
+        new_name = new char[len + 1];
+        strcpy_s(new_name, len + 1, name);
     }
 
     delete[] this->name;
@@ -79,7 +90,7 @@ void vector2_t::set_name(const char* name) {
 }
 
 std::string vector2_t::to_string() {
-    if (name != nullptr && name[0] != '\0') {
+    if (name != NULL && name[0] != '\0') {
         return std::format("{}: ({}, {})", name, x, y);
     }
 
