@@ -42,20 +42,29 @@ vector2_t::vector2_t(const vector2_t& other) {
         size_t len = strlen(other.name);
         name = new char[len + 1];
         strcpy_s(name, len + 1, other.name);
-
-        std::cout << "Copy constructor: copy from -> "
-            << (void*)other.name << " to "
-            << (void*)name << std::endl;
     }
     else {
         name = NULL;
     }
+
+    std::cout << "Copy constructor" << std::endl;
+}
+
+vector2_t::vector2_t(vector2_t&& other) {
+    x = other.x;
+    y = other.y;
+    name = other.name;
+
+    other.x = 0;
+    other.y = 0;
+    other.name = NULL;
+
+    std::cout << "Move constructor" << std::endl;
 }
 
 vector2_t::~vector2_t() {
     delete[] name;
 }
-
 double vector2_t::get_x() {
     return x;
 }
@@ -67,7 +76,6 @@ double vector2_t::get_y() {
 char* vector2_t::get_name() {
     return name;
 }
-
 void vector2_t::set_x(double x) {
     this->x = x;
 }
@@ -95,4 +103,52 @@ std::string vector2_t::to_string() {
     }
 
     return std::format("({}, {})", x, y);
+}
+
+
+vector2_t vector2_t::operator+(const vector2_t& other) {
+    return vector2_t(x + other.x, y + other.y);
+}
+
+vector2_t vector2_t::operator-(const vector2_t& other) {
+    return vector2_t(x - other.x, y - other.y);
+}
+
+
+vector2_t& vector2_t::operator=(const vector2_t& other) {
+    if (this != &other) {
+        char* new_name = NULL;
+
+        if (other.name != NULL) {
+            size_t len = strlen(other.name);
+            new_name = new char[len + 1];
+            strcpy_s(new_name, len + 1, other.name);
+        }
+
+        delete[] name;
+
+        x = other.x;
+        y = other.y;
+        name = new_name;
+    }
+
+    std::cout << "Copy assignment operator" << std::endl;
+    return *this;
+}
+
+vector2_t& vector2_t::operator=(vector2_t&& other) {
+    if (this != &other) {
+        delete[] name;
+
+        x = other.x;
+        y = other.y;
+        name = other.name;
+
+        other.x = 0;
+        other.y = 0;
+        other.name = NULL;
+    }
+
+    std::cout << "Move assignment operator" << std::endl;
+    return *this;
 }

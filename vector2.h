@@ -1,3 +1,4 @@
+
 #pragma once
 #include <string>
 
@@ -22,7 +23,15 @@ public:
     vector2_t(double);
     vector2_t(double, double);
     vector2_t(double, double, const char*);
-    vector2_t(const vector2_t&);
+    vector2_t(const vector2_t&);  
+    vector2_t(vector2_t&&);       
 
+ 
     ~vector2_t();
+
+    vector2_t operator+(const vector2_t&);
+    vector2_t operator-(const vector2_t&);
+
+    vector2_t& operator=(const vector2_t&);  
+    vector2_t& operator=(vector2_t&&);       
 };

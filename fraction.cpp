@@ -41,8 +41,8 @@ fraction_t::fraction_t(fraction_t& other) {
 		size_t len = strlen(other.name) + 1;
 		this->name = new char[len];
 		strcpy(this->name, other.name);
-		// std::cout << "Copy constructor: copy from " << (void*)other.name << " to "
-		// 	<< (void*)(this->name) << std::endl;
+		std::cout << "Copy constructor: copy from " << (void*)other.name << " to "
+			<< (void*)(this->name) << std::endl;
 	}
 	else {
 		this->name = NULL;
@@ -64,6 +64,10 @@ fraction_t::fraction_t(fraction_t& other) {
 			  A              B               0x123          0x567
 	------[1,2,0x123]----[1,2,0x567]--------"Half\0"--------"Half\0"----------------
 
+	Аналогічна ситуація виникає при присвоюванні: А = В - так само необхідно
+	створювати копії полів-покажчиків.
+	Поєднання конструктора копіювання та відповідного оператора "="
+	 називають "семантикою копіювання"
 	*/
 }
 
@@ -142,13 +146,7 @@ fraction_t fraction_t::operator +(const fraction_t& other) {
 		this->denominator * other.denominator,
 		new_name);
 	// a/b + c/d = (ad+bc)/bd
-	}
-	return fraction_t(
-		this->numerator * other.denominator + this->denominator * other.numerator,
-		this->denominator * other.denominator
-	);
-};
-
+}
 
 fraction_t& fraction_t::operator =(const fraction_t& other) {
 	this->numerator = other.numerator;
@@ -175,73 +173,52 @@ fraction_t& fraction_t::operator =(fraction_t&& other) noexcept {
 	return *this;
 }
 
-
 fraction_t operator *(const fraction_t& f1, const fraction_t& f2) {
 	return fraction_t(
-		f1.numerator *  f2.denominator,
-		f1.denominator* f2.numerator
-		);
+		f1.numerator * f2.numerator,     // дружні функції мають доступ
+		f1.denominator * f2.denominator  // до приватних полів об'єкту
+	);
 }
 
-fraction_t operator / (const fraction_t& f1, const fraction_t& f2) {
+fraction_t operator /(const fraction_t& f1, const fraction_t& f2) {
 	return fraction_t(
-		f1.get_numerator() *  f2.get_denominator(),
-		f1.get_denominator()* f2.get_numerator()
-		);
+		f1.get_numerator() * f2.get_denominator(),  // функції, що не є дружніми
+		f1.get_denominator() * f2.get_numerator()   // мають доступ лише до аксессорів
+	);
 }
 
-fraction_t operator - (const fraction_t& f) {
+std::ostream& operator <<(std::ostream& out, const fraction_t& f) {
+	out << f.to_string();
+	return out;
+}
+
+fraction_t operator -(const fraction_t& f) {
 	return fraction_t(
 		-f.get_numerator(),
 		f.get_denominator()
 	);
 }
 
-
-
 void fraction_t::operator += (const fraction_t& other) {
 	this->numerator = this->numerator * other.denominator + this->denominator * other.numerator;
 	this->denominator = this->denominator * other.denominator;
-	recuce;
+	reduce();
 }
 void fraction_t::operator += (int n) {
 	this->numerator += n * this->denominator;
-	recuce;
+	reduce();
 }
-
 int fraction_t::gcd(int a, int b) {
-	if (a < 0)a = -a;
-	if (b < 0)b = -b;
+	if (a < 0) a = -a;
+	if (b < 0) b = -b;
 	if (b > a) return gcd(b, a);
-	if (a == 0)return b;
-	if (b == 0)return a;
+	if (b == 0) return a;
 	return gcd(b, a % b);
 }
-
-void fraction_t::recuce() {
+void fraction_t::reduce() {
 	int g = gcd(numerator, denominator);
 	if (g != 1) {
 		numerator /= g;
 		denominator /= g;
 	}
 }
-
-
-std::ostream& operator << (std::ostream& out, const fraction_t& f) {
-	out << f.to_string();
-	return out;
-}
-/*
-Д.З. Описати клас, що задає вектор на площині (vector_2 / vector2_t)
-склад: 2 поля-координати х та у (дробові)
-+ аксессори для них
-Розділити оголошення типу та реалізацію його методів на різні файли.
-
-Д.З. Реалізувати для класу, що задає вектор на площині (попереднє ДЗ)
-додати поле для імені вектора (char*), аксесори для нього
-конструктори (без параметрів, з різними параметрами, конструктор копіювання)
-метод рядкового представлення (to_string), що включає ім'я (якщо воно є)
-деструктор
-Створити декілька об'єктів - векторів, у т.ч. за допомогою копіювання,
-вивести дані на екран. Додати скріншот і посилання  на репозиторій.
-*/
