@@ -1,6 +1,7 @@
 
 #pragma once
 #include <string>
+#include <iosfwd>
 
 class vector2_t {
 private:
@@ -23,15 +24,22 @@ public:
     vector2_t(double);
     vector2_t(double, double);
     vector2_t(double, double, const char*);
-    vector2_t(const vector2_t&);  
-    vector2_t(vector2_t&&);       
+    vector2_t(const vector2_t&);
+    vector2_t(vector2_t&&);
 
- 
     ~vector2_t();
 
     vector2_t operator+(const vector2_t&);
     vector2_t operator-(const vector2_t&);
 
-    vector2_t& operator=(const vector2_t&);  
-    vector2_t& operator=(vector2_t&&);       
+    vector2_t operator*(double);
+    vector2_t operator/(double);
+
+    vector2_t& operator+=(const vector2_t&);
+    vector2_t& operator-=(const vector2_t&);
+
+    vector2_t& operator=(const vector2_t&);
+    vector2_t& operator=(vector2_t&&);
+
+    friend std::ostream& operator<<(std::ostream&, const vector2_t&);
 };

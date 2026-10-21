@@ -2,6 +2,7 @@
 #include "vector2.h"
 #include <format>
 #include <iostream>
+#include <stdexcept>
 #include <cstring>
 
 vector2_t::vector2_t() {
@@ -151,4 +152,40 @@ vector2_t& vector2_t::operator=(vector2_t&& other) {
 
     std::cout << "Move assignment operator" << std::endl;
     return *this;
+}
+
+vector2_t vector2_t::operator*(double number) {
+    return vector2_t(x * number, y * number);
+}
+
+vector2_t vector2_t::operator/(double number) {
+    if (number == 0) {
+        throw std::invalid_argument("Division by zero");
+    }
+
+    return vector2_t(x / number, y / number);
+}
+
+vector2_t& vector2_t::operator+=(const vector2_t& other) {
+    x += other.x;
+    y += other.y;
+
+    return *this;
+}
+
+vector2_t& vector2_t::operator-=(const vector2_t& other) {
+    x -= other.x;
+    y -= other.y;
+
+    return *this;
+}
+
+std::ostream& operator<<(std::ostream& out, const vector2_t& v) {
+    if (v.name != nullptr && v.name[0] != '\0') {
+        out << v.name << ": ";
+    }
+
+    out << "(" << v.x << ", " << v.y << ")";
+
+    return out;
 }

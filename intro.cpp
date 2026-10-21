@@ -91,4 +91,22 @@ void intro() {
 	std::cout << "Move assignment: "
 		<< v8.to_string() << std::endl;
 
+
+
+	vector2_t v1(10, 20, "Vector A");
+	vector2_t v2(3, 5, "Vector B");
+	std::cout << "v1 + v2 = " << v1 + v2 << std::endl;
+	std::cout << "v1 - v2 = " << v1 - v2 << std::endl;
+	std::cout << "v1 * 2 = " << v1 * 2 << std::endl;
+	std::cout << "v1 / 2 = " << v1 / 2 << std::endl;
+
+	v1 += v2;
+	std::cout << "v1 += v2: " << v1 << std::endl;
+
+	v1 -= v2;
+	std::cout << "v1 -= v2: " << v1 << std::endl;
+
+	std::cout << "v2: " << v2 << std::endl;
+
+
 }
