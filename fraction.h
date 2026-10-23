@@ -61,4 +61,4 @@ fraction_t operator -(const fraction_t& f);  // унарний мінус (A = -
 
 // також поза класом описуються деякі оператори, що в якості 
 // першого параметра отримують не даний об'єкт
-std::ostream& operator <<(std::ostream& out, const fraction_t& f);
+std::ostream& operator <<(std::ostream& out, const fraction
